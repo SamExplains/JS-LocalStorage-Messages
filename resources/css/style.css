@@ -14,3 +14,7 @@ textarea {
 textarea:hover {
   /*outline: none !important;*/
 }
+
+.remove-message{
+   cursor: pointer;
+}

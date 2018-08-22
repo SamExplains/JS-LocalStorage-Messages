@@ -18,11 +18,15 @@ const messageList = $('#message-list');
     console.warn('Form Submitted');
 
     /* Get the value that the user typed */
-    const inputMessage = document.getElementById("userMessage").value;
+    const inputMessage = $("#userMessage").val();
     console.warn(inputMessage);
 
-    const data = `<tr class="animated fadeInUp">
-                  <td> ${inputMessage} </td>
+    /* Remove Button */
+    const removeButton = `<a class="remove-message"><img src="./resources/img/delete.svg" width="20" alt=""></a>`;
+
+
+    const data = `<tr class="animated fadeInUp font-weight-light">
+                  <td> ${inputMessage} <span class="float-right">${removeButton}</span> </td>
                 </tr>`;
 
     messageList.append(data);
