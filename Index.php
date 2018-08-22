@@ -11,9 +11,9 @@
   <div class="container">
     <div class="row">
       <div class="col-md-10 col-sm-12 mx-auto">
-        <form action="" id="form">
+        <form action="" >
           <textarea class="mb-3" name="" id="userMessage"></textarea>
-          <input type="submit" class="btn btn-dark btn-block" value="Save Message">
+          <input type="submit" id="form" class="btn btn-dark btn-block" value="Save Message">
         </form>
       </div>
       <div class="col-md-10 col-sm-12 mx-auto mt-5">

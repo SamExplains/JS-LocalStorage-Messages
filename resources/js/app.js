@@ -8,6 +8,9 @@ const messageList = $('#message-list');
 
   function eventListener() {
     document.querySelector('#form').addEventListener('click', newMessage);
+
+    /* Remove message from list*/
+    messageList.click(removeMessage);
   }
 
 
@@ -22,13 +25,27 @@ const messageList = $('#message-list');
     console.warn(inputMessage);
 
     /* Remove Button */
-    const removeButton = `<a class="remove-message"><img src="./resources/img/delete.svg" width="20" alt=""></a>`;
+    const removeButton = `<img src="./resources/img/delete.svg" width="20" alt="">`;
 
 
-    const data = `<tr class="animated fadeInUp font-weight-light">
-                  <td> ${inputMessage} <span class="float-right">${removeButton}</span> </td>
+    const data = `<tr class="animated fadeInUp font-weight-light remove-message">
+                  <td> ${inputMessage} <div class="float-right">${removeButton}</div> </td>
                 </tr>`;
 
     messageList.append(data);
 
+  }
+
+  /* Remove message from DOM */
+  function removeMessage(e) {
+    //console.log(e.delegateTarget.childNodes[1].classList.contains("remove-message"));
+
+    // if (e.target.classList.contains("remove-message")){
+    if (e.delegateTarget.childNodes[1].classList.contains("remove-message")){
+      console.warn('This contains the .remove-message class.');
+      e.delegateTarget.childNodes[1].remove();
+
+    } else {
+      console.warn('Class not found');
+    }
   }
