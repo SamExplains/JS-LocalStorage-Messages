@@ -1,5 +1,6 @@
 console.log('Script loaded in!');
 let indexCount;
+let clickedRowID;
 
 if (indexCount === 'undefined'){
   console.error('OUR INDEX IS UNDEFINED!');
@@ -56,15 +57,19 @@ const messageList = $('#message-list');
 
   /* Remove message from DOM */
   function removeMessage(e) {
-    // const RowID = myID();
-    console.error('Something happened, ROW ID OF ');
     //console.log(e.delegateTarget.childNodes[1].classList.contains("remove-message"));
 
     // if (e.target.classList.contains("remove-message")){
     if (e.delegateTarget.childNodes[1].classList.contains("remove-message")){
       console.warn('This contains the .remove-message class.');
-      console.warn('ID FOR THIS ROW IS : ' + e.delegateTarget.rowIndex);
-      console.warn(e.delegateTarget.childNodes);
+      console.warn('___ ID FOR THIS TABLE ROW IS : #' + clickedRowID);
+      console.error(e.delegateTarget.childNodes);
+      /* Grab Element To Be Deleted */
+      let element = document.getElementById(clickedRowID);
+      console.log(element);
+      /* WORKING BUT ... Newly added items won't be deleted. Try a refresh! */
+      element.remove();
+      //element.parentNode.removeChild(clickedRowID);
       //e.delegateTarget.childNodes[1].remove();
 
     } else {
@@ -137,5 +142,6 @@ function retrieveIndexFromStorage(){
   }
 
   function myID(id) {
-    return console.error('Function -> myID <- :: CLICKED ID OF ' + id);
+    console.error('Function -> myID <- :: CLICKED ID OF ' + id);
+    clickedRowID = id;
   }
