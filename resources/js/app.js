@@ -43,7 +43,7 @@ const messageList = $('#message-list');
     const removeButton = `<img src="./resources/img/delete.svg" width="20" alt="">`;
 
 
-    const data = `<tr class="animated fadeInUp font-weight-light remove-message" id="${indexCount}">
+    const data = `<tr class="animated fadeInUp font-weight-light remove-message" id="${indexCount}" onclick="myID(this.id)">
                   <td> ${inputMessage} <div class="float-right">${removeButton}</div> </td>
                 </tr>`;
 
