@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="./resources/css/animate.css">
   <!--Custom CSS-->
   <link rel="stylesheet" href="./resources/css/style.css">
+  <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+  <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
 
 </head>
 

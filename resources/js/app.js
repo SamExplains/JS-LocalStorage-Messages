@@ -11,6 +11,9 @@ const messageList = $('#message-list');
 
     /* Remove message from list*/
     messageList.click(removeMessage);
+
+    /* Document Ready */
+    document.addEventListener('DOMContentLoaded',localStorageOnLoad);
   }
 
 
@@ -77,4 +80,23 @@ const messageList = $('#message-list');
     }
 
     return msg;
+  }
+
+  function localStorageOnLoad() {
+    let messages = retrieveMessageFromStorage();
+    // console.warn(messages);
+
+    messages.forEach(function (msg) {
+      /* Remove Button */
+      const removeButton = `<img src="./resources/img/delete.svg" width="20" alt="">`;
+
+
+      const data = `<tr class="animated fadeInUp font-weight-light remove-message">
+                  <td> ${msg} <div class="float-right">${removeButton}</div> </td>
+                </tr>`;
+
+      messageList.append(data);
+
+    });
+
   }
