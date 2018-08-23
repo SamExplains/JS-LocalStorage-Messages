@@ -1,5 +1,14 @@
 console.log('Script loaded in!');
-let indexCount = 0;
+let indexCount;
+
+if (indexCount === 'undefined'){
+  console.error('OUR INDEX IS UNDEFINED!');
+  indexCount = 0;
+} else {
+  //Retreive localstorage array size
+  indexCount = localStorage.getItem('index').length;
+  console.error(indexCount);
+}
 
 const messageList = $('#message-list');
 
@@ -47,7 +56,8 @@ const messageList = $('#message-list');
 
   /* Remove message from DOM */
   function removeMessage(e) {
-    console.log('Something happened');
+    // const RowID = myID();
+    console.error('Something happened, ROW ID OF ');
     //console.log(e.delegateTarget.childNodes[1].classList.contains("remove-message"));
 
     // if (e.target.classList.contains("remove-message")){
@@ -127,5 +137,5 @@ function retrieveIndexFromStorage(){
   }
 
   function myID(id) {
-    alert(id);
+    return console.error('Function -> myID <- :: CLICKED ID OF ' + id);
   }
