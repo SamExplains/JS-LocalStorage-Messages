@@ -1,14 +1,14 @@
 console.log('Script loaded in!');
 let indexCount;
 let clickedRowID;
-
-if (indexCount === 'undefined'){
+if (localStorage.getItem('index')){
   console.error('OUR INDEX IS UNDEFINED!');
-  indexCount = 0;
+  indexCount = localStorage.getItem('index').length;
 } else {
   //Retreive localstorage array size
-  indexCount = localStorage.getItem('index').length;
-  console.error(indexCount);
+  //indexCount = localStorage.getItem('index').length;
+  indexCount = 0;
+  //console.error(indexCount);
 }
 
 const messageList = $('#message-list');
@@ -43,8 +43,8 @@ const messageList = $('#message-list');
     const removeButton = `<img src="./resources/img/delete.svg" width="20" alt="">`;
 
 
-    const data = `<tr class="animated fadeInUp font-weight-light remove-message" id="${indexCount}" onclick="myID(this.id)">
-                  <td> ${inputMessage} <div class="float-right">${removeButton}</div> </td>
+    const data = `<tr class="animated fadeInUp font-weight-light remove-message" id="${indexCount}" onclick="rowID(this.id)">
+                  <td>${inputMessage}<div class="float-right">${removeButton}</div> </td>
                 </tr>`;
 
     messageList.append(data);
@@ -63,14 +63,21 @@ const messageList = $('#message-list');
     if (e.delegateTarget.childNodes[1].classList.contains("remove-message")){
       console.warn('This contains the .remove-message class.');
       console.warn('___ ID FOR THIS TABLE ROW IS : #' + clickedRowID);
-      console.error(e.delegateTarget.childNodes);
+      //console.error(e.delegateTarget.childNodes);
       /* Grab Element To Be Deleted */
       let element = document.getElementById(clickedRowID);
-      console.log(element);
+      // console.log(element);
       /* WORKING BUT ... Newly added items won't be deleted. Try a refresh! */
       element.remove();
       //element.parentNode.removeChild(clickedRowID);
       //e.delegateTarget.childNodes[1].remove();
+
+      /* Remove item(s) from local storage */
+      //Grab the text content of the item
+      const messageText = element.firstElementChild.textContent;
+      //console.log(messageText);
+
+      removeMessageFromLocalStorage(messageText);
 
     } else {
       console.warn('Class not found');
@@ -131,8 +138,8 @@ function retrieveIndexFromStorage(){
       const removeButton = `<img src="./resources/img/delete.svg" width="20" alt="">`;
 
 
-      const data = `<tr class="animated fadeInUp font-weight-light remove-message" id="${idx[count]}" onclick="myID(this.id)">
-                  <td> ${msg} <div class="float-right">${removeButton}</div> </td>
+      const data = `<tr class="animated fadeInUp font-weight-light remove-message" id="${idx[count]}" onclick="rowID(this.id)">
+                  <td>${msg}<div class="float-right">${removeButton}</div> </td>
                 </tr>`;
 
       messageList.append(data);
@@ -141,7 +148,29 @@ function retrieveIndexFromStorage(){
 
   }
 
-  function myID(id) {
-    console.error('Function -> myID <- :: CLICKED ID OF ' + id);
+  function rowID(id) {
+    console.error('Function -> rowID <- :: CLICKED ID OF ' + id);
     clickedRowID = id;
+  }
+
+  function removeMessageFromLocalStorage(elem) {
+    const elemDelete = elem.substr(0, elem.length -1 );
+    let msg = retrieveMessageFromStorage();
+    let idx = retrieveIndexFromStorage();
+
+    msg.forEach(function (mLS, index) {
+      if(elemDelete === mLS) {
+        console.warn('WE HAVE A MATCH');
+        console.warn('Removing ' + elemDelete + ' from local storage . . .');
+        msg.splice(index, 1);
+        idx.splice(clickedRowID, 1);
+      } else {
+        //console.warn('NO MATCH FOUND, Elem is ' + elemDelete + ' ' + elemDelete.length + ' Local Storage was ' + mLS + ' ' + mLS.length );
+      }
+    });
+    console.error('NEW Local Storage Message Array Is ' + msg);
+    console.error('NEW Local Storage INDEX Array Is ' + idx);
+    localStorage.setItem('msg', JSON.stringify(msg));
+    localStorage.setItem('index', JSON.stringify(idx));
+
   }
